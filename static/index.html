@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تست جست‌وجوی کاربران LDAP</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<main>
+  <header><h1>جست‌وجوی کاربران</h1><p>تست LDAP، جست‌وجوی تقریبی و نام‌های مستعار</p></header>
+  <section aria-label="اتصال" class="panel">
+    <label for="key">کلید API از فایل .env</label>
+    <div class="row"><input id="key" type="password" dir="ltr" autocomplete="off" placeholder="API_KEY"><button id="sync" type="button" class="secondary">همگام‌سازی LDAP</button></div>
+    <small>کلید فقط در حافظهٔ همین صفحه می‌ماند. جست‌وجو روی اطلاعات ذخیره‌شده انجام می‌شود؛ ابتدا یک بار همگام‌سازی کن.</small>
+  </section>
+  <form id="search-form" class="panel">
+    <label for="query">نام، نام کاربری یا نام مستعار</label>
+    <div class="row"><input id="query" required maxlength="256" dir="auto" placeholder="مثلاً Ali Masoudi یا یاسی"><button id="search" type="submit">جست‌وجو</button></div>
+    <div class="options"><label>حداقل امتیاز <input id="threshold" type="number" min="0" max="100" value="70" required></label><label>تعداد نتایج <input id="limit" type="number" min="1" max="50" value="10" required></label><label class="checkbox"><input id="enabled" type="checkbox"> فقط حساب‌های فعال</label></div>
+  </form>
+  <p id="status" role="status" aria-live="polite">برای شروع، کلید API و عبارت جست‌وجو را وارد کن.</p>
+  <div class="columns">
+    <section aria-label="نتایج جست‌وجو"><h2>نتایج <span id="count"></span></h2><div id="results" class="results"><p class="muted">هنوز جست‌وجویی انجام نشده است.</p></div></section>
+    <section class="panel" aria-label="نام‌های مستعار"><h2>نام‌های مستعار</h2><p id="selected" class="muted">یک کاربر را از نتایج انتخاب کن.</p><div id="alias-editor" hidden><ul id="aliases"></ul><form id="alias-form"><label for="alias">نام مستعار جدید</label><div class="row"><input id="alias" required maxlength="256" dir="auto" placeholder="مثلاً یاسی یا Yasi Ahmadi"><button id="add-alias" type="submit">ثبت</button></div></form><small>فقط برای فرد انتخاب‌شده ثبت می‌شود و با همگام‌سازی LDAP پاک نمی‌شود. نگارش فارسی یا انگلیسی دیگر را هم می‌توانی اینجا اضافه کنی.</small></div></section>
+  </div>
+</main>
+</body>
+</html>

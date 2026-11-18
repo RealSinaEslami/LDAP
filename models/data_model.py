@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import DateTime, String, Text
+from sqlalchemy import DateTime, ForeignKey, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 from database import Base
 
@@ -18,3 +18,12 @@ class LDAPUser(Base):
     distinguished_name: Mapped[str] = mapped_column(Text)
     enabled: Mapped[bool]
     last_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class UserAlias(Base):
+    __tablename__ = 'user_aliases'
+    __table_args__ = (UniqueConstraint('user_uid', 'normalized_name'),)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_uid: Mapped[str] = mapped_column(ForeignKey('ldap_users.uid'), index=True)
+    name: Mapped[str] = mapped_column(String(256))
+    normalized_name: Mapped[str] = mapped_column(String(256), index=True)
